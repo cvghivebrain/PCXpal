@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls;
+  Dialogs, ExtCtrls, StdCtrls, UAbout;
 
 type
   TForm1 = class(TForm)
@@ -31,6 +31,7 @@ type
     opnGGD: TLabel;
     makJasc: TLabel;
     makMD: TLabel;
+    lblAbout: TLabel;
     procedure opnPCXMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure opnPCXMouseLeave(Sender: TObject);
@@ -89,6 +90,10 @@ type
       Y: Integer);
     procedure makMDMouseLeave(Sender: TObject);
     procedure makMDClick(Sender: TObject);
+    procedure lblAboutMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure lblAboutMouseLeave(Sender: TObject);
+    procedure lblAboutClick(Sender: TObject);
   private
     { Private declarations }
     procedure EmptyPal;
@@ -187,7 +192,7 @@ begin
     begin
     AssignFile(myFile, dlgOpen.FileName);
     Reset(myFile, 1);
-    Seek(myFile, FileSize(myFile)-768);   //PCX pallet address
+    Seek(myFile, FileSize(myFile)-768);   //PCX palette address
     Pindex := 0;  //start at 0 in array
     while (not eof(myFile)) and (Pindex < 192) do
       begin
@@ -286,8 +291,8 @@ begin
       begin
       AssignFile(myFile, dlgOpen.FileName);
       Reset(myFile, 1);
-      Seek(myFile, 4);    //TPL pallet data
-      Pindex := 0;        //start at 0 in pallet array
+      Seek(myFile, 4);    //TPL palette data
+      Pindex := 0;        //start at 0 in palette array
       while (Pindex < 192) and not eof(myFile) do
         begin
         BlockRead(myFile, Parray[Pindex], 1);
@@ -458,7 +463,7 @@ end;
 procedure TForm1.opnMDClick(Sender: TObject);
 var r, g, b: byte;
 begin
-  dlgOpen.Filter := 'Raw Megadrive Palettes (*.bin)|*.bin|All Files|*.*';
+  dlgOpen.Filter := 'Raw Mega Drive Palettes (*.bin)|*.bin|All Files|*.*';
   if dlgOpen.Execute then
     begin
     EmptyPal;
@@ -749,7 +754,7 @@ var
   r, g, b, gr: byte;
   palkount: integer;
 begin
-  dlgSave.Filter := 'Raw Megadrive Palettes (*.bin)|*.bin|All Files|*.*';
+  dlgSave.Filter := 'Raw Mega Drive Palettes (*.bin)|*.bin|All Files|*.*';
   dlgSave.DefaultExt := 'bin';
   if dlgSave.Execute then
     begin
@@ -786,6 +791,27 @@ begin
   else if (col > 155) and (col <= 186) then Result := $A
   else if (col > 186) and (col <= 217) then Result := $C
   else Result := $E;
+end;
+
+{ about button }
+
+procedure TForm1.lblAboutMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  lblAbout.Font.Color := clYellow;
+end;
+
+procedure TForm1.lblAboutMouseLeave(Sender: TObject);
+begin
+  lblAbout.Font.Color := clWhite;
+end;
+
+procedure TForm1.lblAboutClick(Sender: TObject);
+var NewForm: TForm2;
+begin
+  NewForm := TForm2.Create(Self);
+  NewForm.Caption := 'About';
+  NewForm.ShowModal;
 end;
 
 end.

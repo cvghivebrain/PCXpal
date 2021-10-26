@@ -1,9 +1,10 @@
 object Form1: TForm1
   Left = 313
   Top = 109
+  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'PCXpal 4.1 by Hivebrain'
-  ClientHeight = 363
-  ClientWidth = 331
+  ClientHeight = 379
+  ClientWidth = 332
   Color = clBlack
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -46,7 +47,6 @@ object Form1: TForm1
     0000800300008003000080030000800300008003000080030000800300008003
     000080030000800300008003000080030000FFFF0000}
   OldCreateOrder = False
-  Position = poDesigned
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -292,6 +292,22 @@ object Form1: TForm1
     OnClick = makMDClick
     OnMouseMove = makMDMouseMove
     OnMouseLeave = makMDMouseLeave
+  end
+  object lblAbout: TLabel
+    Left = 264
+    Top = 344
+    Width = 40
+    Height = 16
+    Caption = 'About'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -13
+    Font.Name = 'Courier New'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = lblAboutClick
+    OnMouseMove = lblAboutMouseMove
+    OnMouseLeave = lblAboutMouseLeave
   end
   object boxLine1: TCheckBox
     Left = 16

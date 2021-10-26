@@ -2,7 +2,8 @@ program Ppal;
 
 uses
   Forms,
-  Upal in 'Upal.pas' {Form1};
+  Upal in 'Upal.pas' {Form1},
+  Uabout in 'Uabout.pas' {Form2};
 
 {$R *.res}
 
